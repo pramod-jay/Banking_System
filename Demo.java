@@ -75,9 +75,9 @@ public class Demo{
             }else{
                 System.out.println("\n\nInvalid input..!!!\n\n");
             }
-            //user_input.close();
         }
     }
+    
 }
 
 class Bank {
