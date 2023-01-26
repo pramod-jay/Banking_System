@@ -15,6 +15,7 @@ public class Demo{
             System.out.println("Create account to registered customer press 3");
             System.out.println("Search account press 4");
             System.out.println("Delete customer press 5");
+            System.out.println("Delete account press 6");
             System.out.println("----------***********----------\n\n");
             int input=user_input.nextInt();
             if(input==1){
@@ -64,10 +65,17 @@ public class Demo{
                 System.out.print("Enter NIC: ");
                 String Nic=user_input.nextLine();
                 cusList.deleteCustomer(cus_name, Nic);
+            }else if(input==6){
+                System.out.print("Enter customer name: ");
+                user_input.nextLine();
+                String cus_name=user_input.nextLine();
+                System.out.print("Enter NIC: ");
+                String Nic=user_input.nextLine();
+                cusList.deleteAccount(cus_name, Nic);
             }else{
                 System.out.println("\n\nInvalid input..!!!\n\n");
             }
-            user_input.close();
+            //user_input.close();
         }
     }
 }
@@ -116,15 +124,34 @@ class Bank {
         return null;
     }
 
+    Customer deleteAccount(String cus_name, String Nic){
+        int i=0;
+        for(Customer cus: customerList){
+            if(cus.getName().equals(cus_name) && cus.getNIC().equals(Nic)){
+                System.out.print("Enter account number: ");
+                Integer accNo=user_input.nextInt();
+                cus.delAcc(accNo);
+                break;
+            }
+            i++;
+        }
+        if(i==customerList.size()){
+            System.out.println("\nCustomer not found..!!\n");
+        }
+        return null;
+    }
+
     Customer deleteCustomer(String cus_name, String Nic){
         int i=0;
         for(Customer cus: customerList){
             if(cus.getName().equals(cus_name) && cus.getNIC().equals(Nic)){
                 customerList.remove(customerList.indexOf(cus));
                 System.out.println("\n\nAccount deleted successfully..!!!\n\n");
+                i++;
                 break;
+            }else{
+                i++;
             }
-            i++;
         }
         if(i==customerList.size()){
             System.out.println("\nCustomer not found..!!\n");
@@ -170,6 +197,23 @@ class Customer{
     public void addAcc(Account acc){
         accountList.add(acc);
         System.out.println("\n\nAccount created successfully..!!!\n\n");
+    }
+
+    public void delAcc(Integer acc_no){
+        int i=0;
+        for(Account acc: accountList){
+            if(acc.getAccNo().equals(acc_no)){
+                accountList.remove(accountList.indexOf(acc));
+                System.out.println("\n\nAccount deleted successfully..!!!\n\n");
+                i++;
+                break;
+            }else{
+                i++;
+            }
+        }
+        if(i==accountList.size()){
+            System.out.println("\nAccount not found..!!\n");
+        }
     }
 
     public Customer(String name, String NIC, String address) {
